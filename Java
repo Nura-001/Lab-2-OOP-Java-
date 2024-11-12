@@ -1,0 +1,39 @@
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class Lab2 {
+    public static void main(String[] args) throws Exception {
+        // File paths
+        String inputFilePath = "Input.txt";
+        String outputFilePath = "Output.txt";
+
+        // Scanner to read the highest value from user input
+        Scanner inputScanner = new Scanner(System.in);
+        System.out.print("Enter the highest value to consider in the series: ");
+        int highestValue = inputScanner.nextInt();
+        inputScanner.close();
+
+        int sum = 0;
+
+        // Reading from the input file
+        Scanner fileScanner = new Scanner(new File(inputFilePath));
+        fileScanner.useDelimiter(",\\s*"); // Use comma as delimiter
+
+        // Processing the numbers in the file
+        while (fileScanner.hasNextInt()) {
+            int number = fileScanner.nextInt();
+            if (number <= highestValue) {
+                sum += number;
+            }
+        }
+        fileScanner.close();
+
+        // Writing only the sum to the output file
+        PrintWriter writer = new PrintWriter(new File(outputFilePath));
+        writer.println(sum);
+        writer.close();
+
+        System.out.println("Processing complete. Check Output.txt for the sum.");
+    }
+}
